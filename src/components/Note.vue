@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h1>{{ data.title }}</h1>
-        <p>{{ data.desc }}</p>
+        <h1>{{ elem.title }}</h1>
+        <p>{{ elem.desc }}</p>
     </div>
 </template>
 
@@ -9,7 +9,7 @@
 export default {
   name: 'Note',
   props: {
-    data: Object,
+    elem: Object,
   },
 }
 </script>
