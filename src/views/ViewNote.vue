@@ -1,5 +1,5 @@
 <template>
-  <Note :elem="elem" :full=true />
+  <Note :elem="apiData" :full=true />
 </template>
 
 <script>
@@ -13,7 +13,7 @@ export default {
   },
   data() {
     return {
-        elem: [{title: "", desc: ""}]
+        apiData: []
       }
     },
   mounted() {
@@ -23,7 +23,7 @@ export default {
       .then(response => {
         var res = response.data.note
         console.log(res)
-        this.elem = {title: res["title"], desc: res["content"][0], id: res["_id"]}
+        this.apiData = {title: res["title"], desc: res["content"][0], id: res["_id"]}
         //console.log({title: res[id]["title"], desc: res[id]["content"][0]})
       })
   }
