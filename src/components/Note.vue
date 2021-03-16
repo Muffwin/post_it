@@ -18,8 +18,9 @@ export default {
     }
   },
   mounted() {
-    console.log(this.elem.id);
-    console.log(this.full)
+    //console.log(this.elem)
+    // console.log(this.elem.id);
+    // console.log(this.full)
   }
 }
 </script>
