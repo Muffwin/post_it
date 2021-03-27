@@ -8,25 +8,54 @@
       :icon="['fas', 'trash-alt']"
       @click="deleteNote"
       size="5x" />
+    <font-awesome-icon
+      v-if="isFull === true"
+      class="editNote"
+      :icon="['fas', 'edit']"
+      @click="editNote"
+      size="5x" />
+    <Form v-if="showForm === true" @clickForm="modifyNote" :pTitle="elem.title" :pContent="elem.desc" />
   </div>
 
 </template>
 
 <script>
 import axios from 'axios'
+import Form from '@/components/Form.vue'
 
 export default {
   name: 'Note',
+  components: {
+    Form
+  },
   props: {
     elem: Object,
     full: Boolean
   },
   data() {
     return {
-      isFull: this.full
+      isFull: this.full,
+      showForm: false,
     }
   },
   methods: {
+    editNote() {
+      this.showForm = !this.showForm
+    },
+    modifyNote(params) {
+      var res = confirm("Do you wish to edit this note ?")
+      if (!res) return
+      console.log(params)
+      axios({
+        method: 'put',
+        url: `http://5.135.119.239:3090/notes/${this.$route.params.id}`,
+        data: {
+          title: params.title,
+          content: params.content
+        }
+      })
+      .then(() => this.$router.push('/'))
+    },
     deleteNote() {
       var res = confirm("Do you wish to delete this note ?")
       if (!res) return
@@ -49,6 +78,15 @@ export default {
   margin-left: 90%;
   margin-top: 45%;
   color: red;
+  cursor: pointer;
+  display: inline-block;
+}
+.editNote {
+  margin-right: 90%;
+  margin-top: -30%;
+  color: blue;
+  cursor: pointer;
+  display: inline-block;
 }
 .desc {
   overflow: hidden;

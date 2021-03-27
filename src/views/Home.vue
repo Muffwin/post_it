@@ -5,7 +5,7 @@
     <Note @click="dispNote(item.id)" v-for="item in postList" :full=false :elem="{id: item.id, title: item.title, desc: item.desc}" :key="item.id" />
   </div>
   <h3 @click="showNoteForm" :style="{cursor: 'pointer'}">Add a post-it</h3>
-  <Form v-if="showForm === true" @clickForm="addNote"/>
+  <Form v-if="showForm === true" @clickForm="addNote" title="" content=""/>
 </div>
 </template>
 

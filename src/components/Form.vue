@@ -20,10 +20,14 @@
         data() {
             return {
                 formdata: {
-                    title: "",
-                    content: ""
+                    title: this.pTitle,
+                    content: this.pContent
                 }
             }
+        },
+        props: {
+            pTitle: String,
+            pContent: String
         },
         methods: {
             createNote() {
