@@ -1,11 +1,20 @@
 <template>
-    <div :class="{ full: isFull }">
-      <h1>{{ elem.title }}</h1>
-      <p :class="{desc : !isFull}">{{ elem.desc }}</p>
-    </div>
+  <div :class="{ full: isFull }">
+    <h1>{{ elem.title }}</h1>
+    <p :class="{desc : !isFull}">{{ elem.desc }}</p>
+    <font-awesome-icon
+      v-if="isFull === true"
+      class="binNote"
+      :icon="['fas', 'trash-alt']"
+      @click="deleteNote"
+      size="5x" />
+  </div>
+
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Note',
   props: {
@@ -17,10 +26,16 @@ export default {
       isFull: this.full
     }
   },
-  mounted() {
-    //console.log(this.elem)
-    // console.log(this.elem.id);
-    // console.log(this.full)
+  methods: {
+    deleteNote() {
+      var res = confirm("Do you wish to delete this note ?")
+      if (!res) return
+      axios({
+        method: 'delete',
+        url: `http://5.135.119.239:3090/notes/${this.$route.params.id}`,
+      })
+      .then(() => this.$router.push('/'))
+    }
   }
 }
 </script>
@@ -29,6 +44,11 @@ export default {
 .full {
   width: 900px;
   height: 600px;
+}
+.binNote {
+  margin-left: 90%;
+  margin-top: 45%;
+  color: red;
 }
 .desc {
   overflow: hidden;
